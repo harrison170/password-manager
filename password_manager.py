@@ -65,10 +65,32 @@ class MasterPassword:
 
             saved_hash = hashed
 
-        while x<<5: 
-            entered = input(
-                "Enter master password: "
-            )
+        max_attempts = 5
+attempts = 0
+
+while attempts < max_attempts:
+    entered = input(
+        "Enter master password: "
+    )
+
+    entered_hash = self.hash_password(
+        entered
+    )
+
+    if entered_hash == saved_hash:
+        print("Access granted.")
+        return True
+
+    attempts += 1
+    remaining = max_attempts - attempts
+
+    if remaining > 0:
+        print(f"Wrong password. {remaining} attempt(s) left.")
+    else:
+        print("Too many failed attempts. Access denied.")
+
+return False
+
 
             entered_hash = self.hash_password(
                 entered
